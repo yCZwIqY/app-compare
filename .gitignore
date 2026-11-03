@@ -1,0 +1,83 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+*.swp
+*.swo
+*~
+
+# Logs and test output
+*.log
+coverage/
+.nyc_output/
+
+# Local environment and signing credentials
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+local.properties
+key.properties
+keystore.properties
+*.jks
+*.keystore
+*.p12
+*.p8
+*.mobileprovision
+*.pem
+*.key
+
+# React Native / Expo / Node
+node_modules/
+.expo/
+.metro-cache/
+.metro-health-check*
+dist/
+dist-routing/
+web-build/
+.next/
+.turbo/
+.pnpm-store/
+expo-env.d.ts
+*.tsbuildinfo
+
+# Flutter / Dart generated files
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+.widget_preview/
+**/Flutter/ephemeral/
+**/Flutter/Generated.xcconfig
+**/Flutter/flutter_export_environment.sh
+
+# Gradle / Kotlin / Android build output
+.gradle/
+.kotlin/
+.konan/
+build/
+.cxx/
+.externalNativeBuild/
+captures/
+*.apk
+*.aab
+*.class
+*.hprof
+
+# Apple / Swift build output and per-user state
+.build/
+.swiftpm/
+Pods/
+.symlinks/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Keep app dependency lockfiles and Gradle wrappers in version control.
