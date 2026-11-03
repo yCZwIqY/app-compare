@@ -3,6 +3,7 @@ package com.example.kmp_test.features.tasks.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,12 +17,15 @@ import com.example.kmp_test.features.tasks.components.*
 import com.example.kmp_test.features.tasks.state.TasksState
 
 @Composable
-fun TaskListScreen(state: TasksState, onOpen: (Int) -> Unit) {
+fun TaskListScreen(state: TasksState, onOpen: (Int) -> Unit, onOpenYoutube: () -> Unit) {
     val visible = state.visible
     Column(Modifier.widthIn(max = 600.dp).fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Spacer(Modifier.height(8.dp))
         Text("SMALL STEPS, EVERY DAY", color = Accent, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
-        Text("오늘의 할 일", fontSize = 32.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF17213A))
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+            Text("오늘의 할 일", fontSize = 32.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF17213A))
+            TextButton(onClick = onOpenYoutube) { Text("유튜브 열기 ›") }
+        }
         Text("작은 실천으로 하루를 채워보세요.", color = Color(0xFF747D8C))
         ProgressCard(completed = state.completed, total = state.tasks.size)
         TaskInput(value = state.draft, onChange = state::updateDraft, onAdd = state::add)

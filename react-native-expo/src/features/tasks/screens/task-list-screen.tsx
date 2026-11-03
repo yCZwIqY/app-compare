@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { router } from 'expo-router';
-import { FlatList, StyleSheet, Text } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { PageShell } from '@/shared/ui/page-shell';
 import { colors } from '@/shared/theme/colors';
 import { ProgressCard } from '../components/progress-card';
@@ -22,7 +22,10 @@ export default function TaskListScreen() {
   }
   return <PageShell>
     <Text style={styles.eyebrow}>SMALL STEPS, EVERY DAY</Text>
-    <Text style={styles.heading}>오늘의 할 일</Text>
+    <View style={styles.header}>
+      <Text style={styles.heading}>오늘의 할 일</Text>
+      <Pressable accessibilityRole="link" onPress={() => router.push('/youtube')}><Text style={styles.link}>유튜브 열기 ›</Text></Pressable>
+    </View>
     <Text style={styles.muted}>작은 실천으로 하루를 채워보세요.</Text>
     <ProgressCard completed={tasks.filter(task => task.done).length} total={tasks.length} />
     <TaskInput value={draft} onChange={setDraft} onAdd={addTask} />
@@ -35,6 +38,8 @@ export default function TaskListScreen() {
   </PageShell>;
 }
 const styles = StyleSheet.create({
+  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' },
+  link: { color: colors.accent, paddingVertical: 12 },
   eyebrow: { color: colors.accent, fontSize: 12, fontWeight: '700', letterSpacing: 2, marginTop: 24 },
   heading: { color: colors.ink, fontSize: 32, fontWeight: '800' }, muted: { color: colors.muted },
   list: { gap: 10, paddingBottom: 16 }, empty: { padding: 32, textAlign: 'center', color: colors.muted },

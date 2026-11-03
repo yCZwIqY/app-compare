@@ -57,13 +57,24 @@ class _TaskPageState extends State<TaskPage> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      '오늘의 할 일',
-                      style: TextStyle(
-                        color: Color(0xFF17213A),
-                        fontSize: 32,
-                        fontWeight: FontWeight.w800,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Flexible(
+                          child: Text(
+                            '오늘의 할 일',
+                            style: TextStyle(
+                              color: Color(0xFF17213A),
+                              fontSize: 32,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () => TaskRoutes.openYoutube(context),
+                          child: const Text('유튜브 열기 ›'),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 12),
                     const Text(

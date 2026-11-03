@@ -6,6 +6,7 @@ export default function RootLayout() {
     <TaskProvider>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
+        <Stack.Screen name="youtube" />
         <Stack.Screen name="tasks/[id]" />
       </Stack>
     </TaskProvider>

@@ -14,6 +14,8 @@ import com.example.kmp_test.features.tasks.screens.TaskListScreen
 import com.example.kmp_test.features.tasks.screens.TaskDetailScreen
 import com.example.kmp_test.features.tasks.state.TasksState
 
+import com.example.kmp_test.features.youtube.screens.YoutubeScreen
+
 private const val LIST = "tasks"
 private const val DETAIL = "tasks/{id}"
 
@@ -26,8 +28,10 @@ fun AppNavHost(state: TasksState, onNavHostReady: suspend (NavController) -> Uni
     NavHost(navController = navController, startDestination = LIST,
         modifier = Modifier.widthIn(max = 600.dp).fillMaxSize()) {
         composable(LIST) {
-            TaskListScreen(state = state, onOpen = { navController.navigate("tasks/$it") })
+            TaskListScreen(state = state, onOpen = { navController.navigate("tasks/$it") },
+                onOpenYoutube = { navController.navigate("youtube") })
         }
+        composable("youtube") { YoutubeScreen(onBack = ::backToList) }
         composable(DETAIL) { entry ->
             val id = entry.arguments?.read { getString("id") }?.toIntOrNull()
             TaskDetailScreen(

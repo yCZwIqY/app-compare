@@ -136,3 +136,29 @@ features/tasks/
 - KMP: Android 빌드, Desktop·JS·Wasm 컴파일, 공통 모델/상태 테스트
 
 실행 방법은 [README](README.md)를 참고하세요. 데이터는 여전히 메모리에만 저장합니다.
+
+## 유튜브 기능의 플랫폼별 WebView 분리
+
+새 기능은 기존 할 일 폴더와 나란히 `features/youtube/`에 추가했습니다.
+
+- RN: `app/youtube.tsx` → `features/youtube/screens/youtube-screen.tsx` → `components/youtube-browser.tsx`. 웹에서는 `.web.tsx` 구현을 자동으로 선택합니다.
+- Flutter: `features/youtube/pages/youtube_page.dart`가 페이지를 조립하고 `widgets/youtube_browser.dart`가 플러그인 Controller와 WebView를 관리합니다. 라우트 생성은 `navigation/task_routes.dart`에 있습니다.
+- KMP: `commonMain/.../features/youtube/screens/YoutubeScreen.kt`는 공통 페이지입니다. `components/YoutubeBrowser.kt`에 `expect` 선언을 두고 각 플랫폼 source set에 같은 패키지의 `actual` 구현을 넣었습니다.
+
+```text
+shared/src/
+  commonMain/.../features/youtube/
+    screens/YoutubeScreen.kt
+    components/YoutubeBrowser.kt        # expect 선언
+    components/BrowserFallback.kt       # 브라우저 열기 공통 UI
+  androidMain/.../features/youtube/components/YoutubeBrowser.android.kt
+  iosMain/.../features/youtube/components/YoutubeBrowser.ios.kt
+  jvmMain/.../features/youtube/components/YoutubeBrowser.desktop.kt
+  jsMain/.../features/youtube/components/YoutubeBrowser.js.kt
+  wasmJsMain/.../features/youtube/components/YoutubeBrowser.wasm.kt
+```
+
+KMP Android/iOS는 각각 플랫폼 기본 WebView를 사용하며, 화면에서 벗어나면 로딩을 중지합니다. Android WebView는 해제 시 destroy합니다.
+Desktop/Web actual은 공통 BrowserFallback을 호출합니다. 따라서 공통 화면은 Android WebView 또는 WKWebView 타입을 참조하지 않습니다.
+Flutter 공식 WebView 플러그인이 지원하는 Android/iOS/macOS 이외의 대상도 브라우저로 엽니다.
+플랫폼 지원 표와 실행 주의점은 [README](README.md)의 유튜브 절을 참고하세요.

@@ -51,3 +51,24 @@ Expo와 KMP에서 존재하지 않는 할 일 ID를 열면 안내 문구와 목�
 ## 파일 아키텍처
 
 프레임워크별 폴더 트리, 파일 역할과 데이터 흐름은 [ARCHITECTURE.md](ARCHITECTURE.md)를 참고하세요.
+
+## 유튜브 WebView 예제
+
+목록 오른쪽의 **유튜브 열기 ›**를 누르면 새 `/youtube` 페이지로 이동합니다.
+상단의 목록으로/뒤로 가기는 앱 목록으로 돌아오고, WebView 안의 **웹 뒤로**는 웹 방문 기록을 이동합니다.
+모바일 WebView에는 새로고침을 제공합니다. 로그인이나 동영상 자동 재생은 추가로 구현하지 않았습니다.
+
+| 대상 | React Native | Flutter | KMP |
+| --- | --- | --- | --- |
+| Android | react-native-webview | webview_flutter | AndroidView + Android WebView |
+| iOS | react-native-webview | webview_flutter | UIKitView + WKWebView |
+| Web | 외부 브라우저로 열기 | 외부 브라우저로 열기 | 외부 브라우저로 열기 |
+| Windows / Linux | 해당 앱 실행 대상 아님 | 외부 브라우저로 열기 | 외부 브라우저로 열기 |
+| macOS | 해당 앱 실행 대상 아님 | webview_flutter | Desktop은 외부 브라우저로 열기 |
+
+모바일은 `https://m.youtube.com`, 브라우저 열기는 `https://www.youtube.com`을 사용합니다.
+실제 사이트/동영상 이용에는 네트워크 연결이 필요합니다. 빌드와 라우팅 테스트를 수행했으며 iOS 기기에서의 WebView/영상 재생은 검증하지 않았습니다.
+
+새 패키지 설치 후 Expo/Flutter 앱은 개발 서버/앱을 완전히 다시 시작해 주세요.
+Flutter를 Windows에서 처음 설치할 때 심볼릭 링크 관련 오류가 나오면 **Windows 설정 → 시스템 → 개발자용 → 개발자 모드**를 켜고 `flutter pub get`을 다시 실행합니다.
+새 네이티브 플러그인을 추가한 뒤에는 `flutter pub get`이 오류 없이 완료되어야 합니다. 설치 후처리가 실패하면 플러그인 등록이 누락될 수 있으므로, 오류를 해결한 뒤 `flutter pub get`을 다시 실행하고 앱을 완전히 종료/재실행하세요.

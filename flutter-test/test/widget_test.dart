@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_test_1102/app.dart';
 
 void main() {
+  testWidgets('youtube route opens and returns without losing the draft', (
+    tester,
+  ) async {
+    debugDefaultTargetPlatformOverride = TargetPlatform.windows;
+    addTearDown(() => debugDefaultTargetPlatformOverride = null);
+    await tester.pumpWidget(const MyApp());
+    await tester.enterText(find.byType(TextField), '유지할 내용');
+    await tester.tap(find.text('유튜브 열기 ›'));
+    await tester.pumpAndSettle();
+    expect(find.text('유튜브'), findsOneWidget);
+    expect(find.text('브라우저에서 열기 ↗'), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.text('유지할 내용'), findsOneWidget);
+    debugDefaultTargetPlatformOverride = null;
+  });
   testWidgets('back preserves list filter and draft', (tester) async {
     await tester.pumpWidget(const MyApp());
     await tester.enterText(find.byType(TextField), '작성 중인 내용');
