@@ -1,7 +1,7 @@
 # 같은 기능으로 비교하는 예시 앱
 
 React Native(Expo), Flutter, Kotlin Multiplatform에 같은 ‘오늘의 할 일’ 앱을 구현했습니다.
-보라색 진행률 카드, 입력란, 필터, 체크 목록으로 구성된 단일 화면입니다.
+보라색 진행률 카드, 입력란, 필터, 체크 목록과 상세 화면으로 구성되어 있습니다.
 
 ## 공통 동작
 - 초기 할 일 3개, 완료 1개
@@ -17,9 +17,9 @@ React Native(Expo), Flutter, Kotlin Multiplatform에 같은 ‘오늘의 할 일
 
 | 프로젝트 | 폴더에서 실행할 명령 | 주요 구현 |
 | --- | --- | --- |
-| React Native | `npm run start` | `react-native-expo/src/app/index.tsx` |
-| Flutter | `flutter run` | `flutter-test/lib/main.dart` |
-| KMP Android | Android Studio에서 `androidApp` 실행 | `kmptest/shared/src/commonMain/kotlin/com/example/kmp_test/App.kt` |
+| React Native | `npm run start` | `react-native-expo/src/features/tasks/screens/` |
+| Flutter | `flutter run` | `flutter-test/lib/features/tasks/pages/` |
+| KMP Android | Android Studio에서 `androidApp` 실행 | `kmptest/shared/src/commonMain/kotlin/com/example/kmp_test/features/tasks/` |
 | KMP Desktop | `.\gradlew.bat :desktopApp:run` | 같은 공통 UI |
 | KMP Web | `.\gradlew.bat :webApp:wasmJsBrowserDevelopmentRun` | 같은 공통 UI |
 
@@ -41,9 +41,13 @@ KMP iOS는 macOS에서 `kmptest/iosApp/iosApp.xcodeproj`를 Xcode로 열어 실�
 | 구현 | 목록 → 상세 |
 | --- | --- |
 | Expo Router | `/` → `/tasks/[id]`, 루트의 TaskProvider로 상태 공유 |
-| Flutter Navigator | `/` → `/tasks/:id`, MaterialPageRoute와 pop 결과 사용 |
+| Flutter Navigator | `/` → `/tasks/:id`, MaterialPageRoute와 공유 TaskController 사용 |
 | KMP Navigation Compose | `tasks` → `tasks/{id}`, NavHost와 NavController 사용 |
 
 KMP 웹은 브라우저 히스토리와 연결하여 주소의 해시 경로 및 뒤로/앞으로 가기를 지원합니다.
 Expo와 KMP에서 존재하지 않는 할 일 ID를 열면 안내 문구와 목록으로 돌아가는 버튼이 표시됩니다.
 메모리 데이터이므로 새로고침/재실행 후에는 초기 목록만 존재합니다.
+
+## 파일 아키텍처
+
+프레임워크별 폴더 트리, 파일 역할과 데이터 흐름은 [ARCHITECTURE.md](ARCHITECTURE.md)를 참고하세요.

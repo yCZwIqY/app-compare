@@ -1,4 +1,5 @@
 package com.example.kmp_test
+import com.example.kmp_test.features.tasks.model.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 class SharedCommonTest {

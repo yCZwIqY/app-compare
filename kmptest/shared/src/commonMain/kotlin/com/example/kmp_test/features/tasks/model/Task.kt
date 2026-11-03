@@ -1,4 +1,4 @@
-package com.example.kmp_test
+package com.example.kmp_test.features.tasks.model
 
 data class Task(val id: Int, val title: String, val done: Boolean = false)
 enum class TaskFilter(val label: String) {
